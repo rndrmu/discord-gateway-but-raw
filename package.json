@@ -1,0 +1,21 @@
+{
+  "name": "manual-discord-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "discord-gateway.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx tsc --build && node dist/discord-gateway.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^17.0.21",
+    "@types/node-fetch": "2",
+    "@types/ws": "^8.5.2",
+    "node-fetch": "2",
+    "typescript": "^4.6.2",
+    "ws": "^8.5.0"
+  }
+}
