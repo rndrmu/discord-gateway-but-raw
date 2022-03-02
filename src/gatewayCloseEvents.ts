@@ -6,7 +6,7 @@ export const gatewayError = (err: any) => {
             error("[Gateway Closed] UNKNOWN ERROR");
             break;
         case 4001:
-            error("[Gateway Closed] UNKNOWN OP CODE");
+            error("[Gateway Closed] UNKNOWN OPCODE");
             break;
         case 4002:
             error("[Gateway Closed] DECODE ERROR");

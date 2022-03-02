@@ -1,36 +1,35 @@
-import chalk from 'chalk';
+/**
+ * This file contains various logging functions
+ * To reduce overall dependencies, we use ANSI Codes to color the output
+ */
+
 
 export const log = (args: string) => {
     console.log(
-        chalk.hex('#0099ff')('[INFO]'),
-        args
+        `\x1b[32m[LOG]\x1b[0m ${args}`
     );
 }
 
 export const error = (args: string) => {
     console.log(
-        chalk.hex('#ff0000')('[ERROR]'),
-        args
+        `\x1b[31m[ERROR]\x1b[0m ${args}`
     );
 }
 
 export const warn = (args: string) => {
     console.log(
-        chalk.hex('#ffee00')('[WARN]'),
-        args
+        `\x1b[33m[WARN]\x1b[0m ${args}`
     );
 }
 
 export const success = (args: string) => {
     console.log(
-        chalk.hex('#009900')('[SUCCESS]'),
-        args
+        `\x1b[32m[SUCCESS]\x1b[0m ${args}`
     );
 }
 
 export const debug = (args: string) => {
     console.log(
-        chalk.hex('#77d13b')('[DEBUG]'),
-        args
+        `\x1b[36m[DEBUG]\x1b[0m ${args}`
     );
 }

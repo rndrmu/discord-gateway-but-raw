@@ -5,17 +5,11 @@ import { ReadyPayload, MessagePayload, HelloPayload } from './types'
 import { warn, error, success, log, debug } from './fancyLogger';
 import { identifyToGateway, heartbeat } from './websocket';
 import { gatewayError } from "./gatewayCloseEvents";
+import { sendMessageOverHTTP } from './http';
+import { dispatchEventHandler } from './dispatcher';
 //import { gatewayCloseEvents } from './gatewayCloseEvents';
 
-async function getGatewayUrl(token: string) {
-    var gatewayUrl = await fetch('https://discord.com/api/v9/gateway/bot', {
-        headers: {
-            'Authorization': 'Bot ' + token
-        }
-    })
 
-    return gatewayUrl.url;
-}
 
 // check that we have a valid token in the environment
 if (!process.env.DISCORD_TOKEN) {
@@ -48,33 +42,11 @@ gatewayConnection.onmessage = (event: any) => {
     switch (data.op) {
         case 0:
             //console.log(data.d);
-            debug('Dispatch');
+            debug('Dispatch Event Fired');
             
             let code = data.t;
-            switch (code) {
-                case "READY":
-                    debug("[Gateway Event] READY");
-                    debug("Connected as " + data.d.user.username + "#" + data.d.user.discriminator);
-                    break;
-                case "RESUMED":
-                    debug("[Gateway Event] RESUMED");
-                    break;
-                case "MESSAGE_CREATE":
-                    let message = data as MessagePayload;
-                    debug("[Gateway Event] MESSAGE_CREATE");
-                    debug(data.d);
-                    debug(message.d.author.username + "#" + message.d.author.discriminator +" said: " + message.d.content);
-                    message.d.author.id === bot_id ? 
-                    debug("Should probably not react to my own message!") 
-                    : sendMessageOverHTTP(message.d.channel_id, "hi mom!");
-
-                    // ignore other bots 
-                    message.d.author.bot ?
-                    debug("Ignoring bot message")
-                    : null;
-                    break;
-                default: break;                    
-            }
+            dispatchEventHandler(code, data);
+            
             break;
         case 1:
             debug('Heartbeat');
@@ -128,22 +100,3 @@ gatewayConnection.onmessage = (event: any) => {
 
 
 
-async function sendMessageOverHTTP(channel_id: string, message: string) {
-    debug("Attempting to send message with content " + message);
-    let options = {
-        host: 'https://discord.com',
-        path: '/api/v10/channels/' + channel_id + '/messages',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bot ' + token
-        }
-    };
-    let res = await fetch(options.host + options.path, {
-        method: options.method,
-        headers: options.headers,
-        body: JSON.stringify({
-            "content": message
-        })
-    });
-}
