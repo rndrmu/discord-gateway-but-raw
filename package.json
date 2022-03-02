@@ -5,7 +5,7 @@
   "main": "discord-gateway.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsc --build && node dist/discord-gateway.js"
+    "dev": "npx tsc --build && node dist/index.js"
   },
   "keywords": [],
   "author": "",

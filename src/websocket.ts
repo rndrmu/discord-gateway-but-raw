@@ -33,7 +33,7 @@ export function identifyToGateway(token: string) {
         "d": {
           "token": token,
           "properties": {
-            "$os": "linux",
+            "$os": "AmogOS",
             "$browser": "disco",
             "$device": "disco"
           },
@@ -42,8 +42,8 @@ export function identifyToGateway(token: string) {
           "shard": [0, 1],
           "presence": {
             "activities": [{
-              "name": "The ACKs in the Console",
-              "type": 3
+              "name": "mdal 0.1",
+              "type": DiscordActivity.PLAYING
             }],
             "status": "dnd",
             "since": 91879201,
@@ -51,10 +51,19 @@ export function identifyToGateway(token: string) {
           },
           // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_BANS
           // This connection will only receive the events defined in those three intents
-          "intents": 1 << 7 | 1 << 9 | 1 << 10 | 1 << 11
+          "intents": 1 << 7 | 1 << 9 | 1 << 10 | 1 << 11 | 1 << 12
         },
         "s": 42,
         "t": "IDENTIFY"
       }
 
+}
+
+enum DiscordActivity {
+    PLAYING = 0,
+    STREAMING = 1,
+    LISTENING = 2,
+    WATCHING = 3,
+    CUSTOM_STATUS = 4,
+    COMPETING = 5
 }

@@ -2,7 +2,7 @@
  * This file contains various logging functions
  * To reduce overall dependencies, we use ANSI Codes to color the output
  */
-
+import { shouldPrintDebug } from ".";
 
 export const log = (args: string) => {
     console.log(
@@ -29,6 +29,7 @@ export const success = (args: string) => {
 }
 
 export const debug = (args: string) => {
+    if (!shouldPrintDebug) return;
     console.log(
         `\x1b[36m[DEBUG]\x1b[0m ${args}`
     );

@@ -9,6 +9,7 @@ import { sendMessageOverHTTP } from './http';
 import { dispatchEventHandler } from './dispatcher';
 //import { gatewayCloseEvents } from './gatewayCloseEvents';
 
+export const shouldPrintDebug = true;
 
 
 // check that we have a valid token in the environment
@@ -48,30 +49,14 @@ gatewayConnection.onmessage = (event: any) => {
             dispatchEventHandler(code, data);
             
             break;
-        case 1:
-            debug('Heartbeat');
-            break;
-        case 2:
-            debug('Identify');
-            break;
-        case 3:
-            debug('Presence Update');
-            break;
-        case 4:
-            debug('Voice State Update');
-            break;
-        case 6:
-            debug('Resume');
-            break;
-        case 7:
-            debug('Reconnect');
-            break;
-        case 8:
-            debug('Request Guild Members');
-            break;
-        case 9:
-            debug('Invalid Session');
-            break;
+        case 1: debug('Heartbeat'); break;
+        case 2: debug('Identify'); break;
+        case 3: debug('Presence Update'); break;
+        case 4: debug('Voice State Update'); break;
+        case 6: debug('Resume'); break;
+        case 7: debug('Reconnect'); break;
+        case 8: debug('Request Guild Members'); break;
+        case 9: error('Invalid Session'); break;
         case 10:
             debug('Hello');
             heartbeat_interval = data.d.heartbeat_interval;
